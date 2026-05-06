@@ -1,46 +1,45 @@
-import { showError, showSuccess } from "../services/notification.service";
-import { Router } from "../router";
+import { showError, showSuccess } from '../services/notification.service'
+import Router from '../router'
 
 export function responseInterceptor() {
   async function onFullfilled(response) {
     if (response.config.successMessage) {
-      showSuccess(response.config.successMessage);
+      showSuccess(response.config.successMessage)
     }
 
     if (response.config.fullResponse) {
-      return response;
+      return response
     } else {
-      return response.data;
+      return response.data
     }
   }
 
   async function onRejected(error) {
     if (!error.response) {
-      showError("Нет соединения с сервером");
-      return Promise.reject(error);
+      showError('Нет соединения с сервером')
+      return Promise.reject(error)
     }
 
-    const { data } = error.response;
+    const { data } = error.response
 
-    let data_error =
-      data?.error || data?.errors || data?.error.message || "Произошла ошибка";
+    let data_error = data?.error || data?.errors || data?.error.message || 'Произошла ошибка'
 
     if (error.config?.showError !== false) {
-      showError(data_error);
+      showError(data_error)
     }
 
     if (error.response.status === 401) {
-      Router.push({ name: "login" });
+      Router.push({ name: 'login' })
     }
 
     if (error.response.status === 403) {
-      Router.push({ name: "forbidden" });
+      Router.push({ name: 'forbidden' })
     }
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
 
   return {
     onFullfilled,
     onRejected,
-  };
+  }
 }
