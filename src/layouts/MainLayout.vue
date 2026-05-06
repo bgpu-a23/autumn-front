@@ -48,6 +48,13 @@
 <script setup>
 import { ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { useAuth } from '../composables/useAuth.js'
+
+const user = ref(null);
+
+const {currentUser} = useAuth();
+
+user = await currentUser();
 
 const linksList = [
   {
