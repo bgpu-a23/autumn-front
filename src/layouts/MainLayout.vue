@@ -6,7 +6,7 @@
 
         <q-toolbar-title> Quasar App </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>{{ user.name }} v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -27,6 +27,7 @@
 <script setup>
 import { ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { useStore } from './../composables/useStore'
 
 const linksList = [
   {
@@ -74,6 +75,9 @@ const linksList = [
 ]
 
 const leftDrawerOpen = ref(false)
+
+const { store } = useStore()
+const user = store.value.sessionStorage.user
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value

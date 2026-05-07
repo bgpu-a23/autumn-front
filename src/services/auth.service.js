@@ -14,5 +14,5 @@ export async function logout() {
 }
 
 export function getCurrentUser() {
-  return api.get('/current-user')
+  return api.get('/users/current-user')
 }

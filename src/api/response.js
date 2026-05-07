@@ -1,5 +1,5 @@
 import { showError, showSuccess } from '../services/notification.service'
-import Router from '../router'
+import { Router } from '../router'
 
 export function responseInterceptor() {
   async function onFullfilled(response) {
@@ -22,7 +22,7 @@ export function responseInterceptor() {
 
     const { data } = error.response
 
-    let data_error = data?.error || data?.errors || data?.error.message || 'Произошла ошибка'
+    let data_error = data?.error || data?.errors || data?.error?.message || 'Произошла ошибка'
 
     if (error.config?.showError !== false) {
       showError(data_error)
